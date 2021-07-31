@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 import random
 import time
-
+#q
 @dataclass
 class Figur():
     name: str
