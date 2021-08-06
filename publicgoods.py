@@ -26,16 +26,16 @@ def strategycalc(strategy,type,reference):
     if type == "naive":
         return (strategy + reference)/2
     elif type == "average":
-        return reference
+        return 0.9*reference
     else:
-        return 0.8*reference
+        return 0.6*reference
 
 
 def round(endowment):      
-    print(f"Du und deine Mitspieler wurden mit jeweils {endowment} Geldeinheiten ausgestattet.")
+    print(f"Du und deine Mitspieler erhalten ein Einkommen von jeweils {endowment} Geldeinheiten.")
     time.sleep(0.5)
     while True:
-        PLcontribution = input(f"Bitte gib' den Betrag an, den du von deiner Ausstattung dieser Runde zum öffentlichen Gut beitragen möchtest:  ")
+        PLcontribution = input(f"Bitte gib' den Betrag an, den du von deinem Einkommen dieser Runde zum öffentlichen Gut beitragen möchtest:  ")
         try:
             PLcontribution = float(PLcontribution)
         except ValueError:
@@ -72,12 +72,21 @@ runde = 0
 endowment = 10
 avgcontri = endowment
 realplayer = AIPlayer(1, 0, "", 0)
-p2 = AIPlayer(2, 0, random.choice(types), random.uniform(endowment, 0.95*endowment))
-p3 = AIPlayer(3, 0, random.choice(types), random.uniform(endowment, 0.95*endowment))
-p4 = AIPlayer(4, 0, random.choice(types), random.uniform(endowment, 0.95*endowment))
+
+p2 = AIPlayer(2, 0, random.choice(types), random.uniform(endowment, 0.75*endowment))
+p3 = AIPlayer(3, 0, random.choice(types), random.uniform(endowment, 0.75*endowment))
+p4 = AIPlayer(4, 0, random.choice(types), random.uniform(endowment, 0.75*endowment))
 
 playerlist = [realplayer, p2, p3, p4]
 
+print(f"In diesem Spiel spielst du mit {len(playerlist)-1} Mitspielern. Jede Runde erhält jeder von euch ein Einkommen von {endowment}.")
+time.sleep(2)
+print(f"Du kannst dich entscheiden, welchen Teil deines Einkommens du zu einem Öffentlichem Gut beitragen möchtest.")
+time.sleep(2)
+print(f"Die Beiträge, die von allen Spielern für das öffentliche Gut gespendet wurden, werden verdoppelt und am Ende der Runde gleichmäßig auf alle Spieler verteilt.")
+time.sleep(2)
+print(f"Das Spiel endet nach einer Runde, in der der durchschnittliche Beitrag zum öffentlichen Gut unter {0.45*endowment} (45% des Rundeneinkommens) liegt.")
+time.sleep(2)
 while avgcontri >= 0.45*endowment:
     runde += 1
     print(f"")
